@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ivy-module version="2.0">
+
+    <info organisation="netuitive-integrations" module="jdbc"/>
+
+    <configurations>
+        <conf name="default" description="default dependencies" />
+        <conf name="generate" description="generate dependencies" />
+        <conf name="compile" description="compile dependances" />
+        <conf name="eclipse" description="eclipse dependances for eclipse" />
+        <conf name="test" description="test dependances" />
+    </configurations>
+
+    <publications>
+        <artifact name="jdbc" type="jar" />
+    </publications>
+    
+    <dependencies>
+
+        <dependency org="netuitive-tools" name="ant-tools" rev="1.0" conf="compile->default"/>
+        
+        <dependency org="netuitive-integrations" name="common" branch="${collector.default.branch}" rev="latest.integration" transitive="false" conf="compile->default;eclipse->default"/>
+        <dependency org="netuitive-integrations" name="remote" branch="${collector.default.branch}" rev="latest.integration" transitive="false" conf="compile->default;eclipse->default"/>
+
+        <dependency org="third-party-libs" name="ant-contrib" rev="1.0" conf="compile->default"/>
+        <dependency org="third-party-libs" name="commons-lang" rev="2.3" conf="compile->default;eclipse->default"/>
+        <dependency org="third-party-libs" name="commons-configuration" rev="1.5" conf="compile->default;eclipse->default"/>
+        <dependency org="third-party-libs" name="commons-logging" rev="1.1" conf="compile->default;eclipse->default"/>
+        <dependency org="third-party-libs" name="commons-dbutils" rev="1.1" conf="compile->default;eclipse->default"/>
+        <dependency org="third-party-libs" name="commons-dbcp" rev="1.2.2" conf="compile->default;eclipse->default"/>
+        <dependency org="third-party-libs" name="velocity" rev="1.5" conf="compile->default;eclipse->default"/>
+        
+        <dependency org="org.testng" name="testng" rev="6.0.1" />
+        
+    </dependencies>
+    
+</ivy-module>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin 
+    name="JDBC Plugin"
+    vendor="Netuitive"
+    description="JDBC Plugin"   
+    version="1.1"
+    class="com.netuitive.remote.plugin.jdbc.JdbcPlugin" 
+    >
+    
+    <key name="cycleTime"           order="1"   type="java.lang.Long"  default="300" />
+    <key name="queryTimeout"        order="2"   type="java.lang.Long" default="30" /> 
+    <key name="timezone"            order="3"   type="java.lang.String" default="UTC" />
+    <key name="username"            order="4"   type="java.lang.String" default="" />
+    <key name="password"            order="5"   type="java.lang.String" default="" />
+    <key name="hostname"            order="6"   type="java.lang.String" default="localhost" /> 
+    <key name="port"                order="7"   type="java.lang.String" default="5432" />
+    <key name="database"            order="8"   type="java.lang.String" default="database" />
+    <key name="queries"             order="9"   type="java.lang.String" default="queries.xml" />
+    
+</plugin>

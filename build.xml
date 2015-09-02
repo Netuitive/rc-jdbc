@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="jdbc" default="package" xmlns:ivy="antlib:org.apache.ivy.ant">
+
+    <description>Build script for Loopback Plugin</description>
+
+    <property file="override.properties" />
+    <property file="build.properties" />
+
+    <import file="${dir.buildtools}/netuitive-common.xml" />
+
+    <target name="process-resources" depends="test">
+        <process-resources/>
+        <!-- process-template-resources/ -->
+        <!-- doc-pdf/ -->
+    </target>
+    
+    <target name="rc-plugin">
+    
+        <mkdir dir="${build.dir}/dist"/>
+        <mkdir dir="${build.dir}/dist/scripts"/>
+        <mkdir dir="${build.dir}/dist/scripts/${ant.project.name}"/>
+        <mkdir dir="${build.dir}/rc-plugin"/>
+        <mkdir dir="${build.dir}/rc-plugin/lib"/>
+        <mkdir dir="${build.dir}/rc-plugin/conf"/>
+        
+        <copy todir="${build.dir}/rc-plugin">
+            <fileset dir="src/main/resources" includes="conf/**"/>
+            <fileset dir="src/main/resources" includes="lib/**"/>
+            <fileset dir="src/main/resources" includes="scripts/**"/>
+        </copy>
+        
+        <copy file="lib/compile/velocity-1.5.jar" tofile="${build.dir}/rc-plugin/lib/velocity.jar"/>
+
+        <!-- base jdbc plugin -->       
+        <package-jar outputFile="${ant.project.name}.jar" 
+            outputDirectory="${build.dir}/rc-plugin/lib" 
+            excludes="**/loopback/simple/**,**/loopback/dfm/**"/>
+               
+        <!-- plugin zip -->
+        <zip destfile="${build.dir}/dist/scripts/${ant.project.name}/rc-${ant.project.name}-plugin.zip">
+            <zipfileset dir="${build.dir}/rc-plugin" prefix="${ant.project.name}">
+                <include name="lib/**" />
+                <include name="conf/**" />
+            </zipfileset>
+        </zip>
+        
+    </target>
+    
+    <target name="package" depends="process-resources,rc-plugin">
+
+        <package-jar/>
+
+        <package_dropin 
+            product="si"        
+            brand="si"
+            version="5.5.0.${build.number}"
+            outputFile="${ant.project.name}-5.5.0-${build.number}.zip">
+            <contents> 
+                <fileset dir="${build.dir}/dist">
+                    <include name="scripts/**"/>
+                </fileset>
+            </contents>
+        </package_dropin>
+    </target>
+    
+</project>

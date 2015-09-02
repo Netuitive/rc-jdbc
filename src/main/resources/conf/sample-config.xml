@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!-- =========================== -->
+<!-- Jdbc Plugin 1.0 -->
+<!-- Configuration File -->
+<!-- =========================== -->
+<jdbc-plugin>
+    <configuration>
+        <driver>org.postgresql.Driver</driver>
+        <validationquery><![CDATA[SELECT 1;]]></validationquery>
+        <url><![CDATA[jdbc:postgresql://$hostname:$port/$database]]></url>
+        <!-- offset in seconds -->
+        <cycletimeoffset>0</cycletimeoffset>
+    </configuration>
+    <queries>
+        <query>
+            <name>bluestripe</name>
+            <type>collection</type>
+            <sql>
+            	<![CDATA[SELECT q1.key, avg(q1.sum / q1.count) AS avg FROM (SELECT split_part(m.server_machine, '.', 1) || '!' || split_part(m.server_machine, '.', 1) || '-' || m.process_group || '-' || m.port || '!' || m.metric_type || '!' || m.metric_category || '!' || f.field_name AS key, f.field_count as count, f.field_sum AS sum FROM metric_tbl m join field_tbl f ON f.metric_id=m.metric_id WHERE m.end_time > ? AND m.end_time <= ?) AS q1 GROUP BY q1.key ORDER BY 1;]]>
+            </sql>
+        </query>
+        <query>
+            <name>rel1</name>
+            <type>relationship</type>
+            <sql>
+            </sql>
+        </query>
+        <query>
+            <name>att1</name>
+            <type>attribute</type>
+            <sql>
+            </sql>
+        </query>
+    </queries>
+</jdbc-plugin>
